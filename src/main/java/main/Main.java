@@ -1,6 +1,8 @@
 package main;
 
-import main.configuration.ProjectConfig;
+import configuration.ProjectConfig;
+import model.Comment;
+import services.CommentService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Main {
@@ -8,8 +10,12 @@ public class Main {
     public static void main(String[] args) {
         var context = new AnnotationConfigApplicationContext(ProjectConfig.class);
 
-        Parrot parrot = context.getBean(Parrot.class);
+    var service = context.getBean(CommentService.class);
 
-        System.out.println(parrot.getName());
+        Comment comment = new Comment();
+        comment.setAuthor("Natasha");
+        comment.setText("Demo comment");
+
+        service.publishComment(comment);
     }
 }
